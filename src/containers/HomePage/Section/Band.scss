@@ -1,0 +1,29 @@
+.section-band {
+  .numbers-list {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+
+    // margin: 0 auto;
+    overflow: hidden;
+
+    .number-iteam {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .number-name {
+        font-size: 2rem;
+        text-align: center;
+        margin: 16px 0;
+      }
+
+      .avatar {
+        // background: url('../../../assets/avatar/avatar1.jpg') center / cover no-repeat;
+        width: 154px;
+        height: 154px;
+        border-radius: 4px;
+      }
+    }
+  }
+}

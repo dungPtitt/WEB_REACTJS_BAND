@@ -1,0 +1,74 @@
+.section-slider-intro {
+  height: 250px;
+  width: 1200px;
+  margin: 60px auto 0;
+  // border: solid 1px red;
+  // display: flex;
+  // text-align: center;
+  // justify-content: center;
+
+  .section-container {
+    // border: solid 1px green;
+    margin: 0 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .section-header {
+      height: 60px;
+    }
+
+    .section-body {
+      height: 100%;
+
+      // .slick-slider {
+      //   height: 100%;
+      // }
+
+      .section-content {
+        // border: solid 1px green;
+        height: 100%;
+        width: 100%;
+
+        .bg-image {
+          height: 150px;
+          width: 278px;
+          background: url('../../../assets/band/band1.jpg') center / cover no-repeat;
+          border: solid 1px #ccc;
+        }
+      }
+    }
+  }
+
+  .slick-prev {
+    border: solid 1px #d7d7d7 !important;
+    left: -10px !important;
+    height: 44px !important;
+    width: 48px !important;
+    background: #ccc !important;
+    z-index: 2;
+
+    &:hover {
+      background: rgb(185, 180, 180) !important;
+    }
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-family: FontAwesome !important;
+    color: red !important;
+  }
+
+  .slick-next {
+    right: -10px !important;
+    border: solid 1px #d7d7d7 !important;
+    height: 44px !important;
+    width: 48px !important;
+    background: #ccc !important;
+    z-index: 2;
+
+    &:hover {
+      background: rgb(185, 180, 180) !important;
+    }
+  }
+}

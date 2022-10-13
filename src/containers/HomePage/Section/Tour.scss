@@ -1,0 +1,82 @@
+.section-tour {
+  background-color: #000;
+
+  .list-ticket {
+    background-color: #fff;
+
+    .ticket-iteam {
+      font-size: 1.5rem;
+      padding: 11px 16px;
+      border-bottom: 1px solid #ddd;
+
+      .status {
+        background-color: #f44336;
+        color: #fff;
+        padding: 3px 4px;
+        margin-left: 16px;
+      }
+
+      .quantity {
+        float: right;
+        background: #000;
+        color: #fff;
+        border-radius: 50%;
+        padding: 4px 8px;
+        margin-top: -3px;
+      }
+    }
+
+  }
+
+  .places-list {
+    margin: 32px -8px 0;
+
+    .place-item {
+      float: left;
+      width: 33.33%;
+      padding: 0 8px;
+
+      img {
+        width: 100%;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      .place-body {
+        background-color: #fff;
+        font-size: 1.5rem;
+        padding: 16px;
+
+        .place-date {
+          padding: 16px 0;
+        }
+
+        .place-desc {
+          margin-bottom: 24px;
+          line-height: 1.4;
+        }
+
+        .place-buy-btn {
+          text-decoration: none;
+          background-color: #000;
+          color: #fff;
+          padding: 12px 16px;
+
+          &:hover {
+            background-color: #ccc;
+            color: #000;
+          }
+        }
+
+      }
+    }
+  }
+}
+
+
+
+/* .place-heading {
+  
+} */

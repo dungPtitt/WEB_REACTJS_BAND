@@ -1,6 +1,7 @@
 export const path = {
     HOME: '/',
     LOGIN: '/login',
+    HOMEPAGE: '/home',
     LOG_OUT: '/logout',
     SYSTEM: '/system'
 };
@@ -9,7 +10,7 @@ export const languages = {
     VI: 'vi',
     EN: 'en'
 };
- 
+
 export const manageActions = {
     ADD: "ADD",
     EDIT: "EDIT",
@@ -23,4 +24,10 @@ export const dateFormat = {
 export const YesNoObj = {
     YES: 'Y',
     NO: 'N'
+}
+
+export const ROLE = {
+    ADMIN: 'R1',
+    BAND: 'R2',
+    AUDIENCE: 'R3'
 }

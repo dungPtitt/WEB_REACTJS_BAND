@@ -1,0 +1,19 @@
+.preview-image-container {
+  position: relative;
+
+  .lable-img {
+    background-color: #ddd;
+    padding: 6px 12px;
+    border-radius: 3px;
+  }
+
+  .preview-image-content {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 180px;
+    height: 80px;
+    border: 1px solid red;
+    background: center center /contain no-repeat;
+  }
+}

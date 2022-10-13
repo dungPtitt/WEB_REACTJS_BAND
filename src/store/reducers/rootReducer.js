@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import appReducer from "./appReducer";
@@ -14,15 +14,23 @@ const persistCommonConfig = {
     stateReconciler: autoMergeLevel2,
 };
 
-const adminPersistConfig = {
+// const adminPersistConfig = {
+//     ...persistCommonConfig,
+//     key: 'admin',
+//     whitelist: ['isLoggedIn', 'adminInfo']
+// };
+// luu vao local store 
+const userPersistConfig = {
     ...persistCommonConfig,
-    key: 'admin',
-    whitelist: ['isLoggedIn', 'adminInfo']
+    key: 'user',
+    whitelist: ['isLoggedIn', 'userInfo']
 };
+
 
 export default (history) => combineReducers({
     router: connectRouter(history),
-    admin: persistReducer(adminPersistConfig, adminReducer),
-    user: userReducer,
-    app: appReducer
+    user: persistReducer(userPersistConfig, userReducer),
+    app: appReducer,
+    admin: adminReducer,
+    // user: userReducer,
 })

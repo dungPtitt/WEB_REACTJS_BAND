@@ -1,15 +1,44 @@
 export const adminMenu = [
-    { //hệ thống
-        name: 'menu.system.header', menus: [
+    { //Quan ly nguoi dung
+        name: 'menu.admin.manage-user',
+        menus: [
             {
-                name: 'menu.system.system-administrator.header',
-                subMenus: [
-                    { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                    { name: 'menu.system.system-administrator.product-manage', link: '/system/product-manage' },
-                    { name: 'menu.system.system-administrator.register-package-group-or-account', link: '/system/register-package-group-or-account' },
-                ]
+                name: 'menu.admin.manage-admin', link: 'system/user-manage'
+            },
+            {
+                name: 'menu.admin.manage-band', link: '/system/manage-member'
+            },
+            {
+                name: 'menu.tour.manage-tour', link: '/tour/manage-tour'
+            },
+            {
+                name: 'menu.admin.crud-redux', link: '/system/user-crud-redux'
             },
             // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
         ]
+
     },
+    { //Quan ly nguoi dung
+        name: 'menu.admin.tour',
+        menus: [
+            {
+                name: 'menu.admin.manage-tour', link: 'system/manage-band'
+            },
+            // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
+        ]
+
+    },
+];
+
+export const memberMenu = [
+    { //Quan ly nguoi dung
+        name: 'menu.member.manage-member',
+        menus: [
+            {
+                name: 'menu.member.manage-schedule', link: '/member/manage-schedule'
+            },
+            // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
+        ]
+
+    }
 ];
