@@ -7,6 +7,9 @@ import * as actions from '../../../store/actions';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import './ManageTour.scss'
+import DatePicker from '../../../components/Input/DatePicker';
+import FormattedDate from '../../../components/Formating/FormattedDate';
+import moment from 'moment';
 
 class ManageTour extends Component {
 
@@ -18,7 +21,8 @@ class ManageTour extends Component {
       name: '',
       address: '',
       des: '',
-      image: ''
+      image: '',
+      currentDate: '',
     }
   }
 
@@ -78,11 +82,11 @@ class ManageTour extends Component {
         name: this.state.name,
         address: this.state.address,
         des: this.state.des,
-        image: this.state.image
-
+        image: this.state.image,
+        // date: this.state.currentDate
       }
-      // console.log("check data", dataInput)
-      this.props.createTourStart(dataInput);
+      console.log("check data", moment(this.state.currentDate).format('DD/MM/YYYY'))
+      //this.props.createTourStart(dataInput);
     }
     // handleUpdateUser = (user) => {
     //     let imageBase64 = '';
@@ -94,6 +98,11 @@ class ManageTour extends Component {
     //     })
     //     console.log("check image: ", imageBase64);
     // }
+  }
+  handleOnchangeDatePicker = (date) => {
+    this.setState({
+      currentDate: date[0]
+    })
   }
   render() {
     let { name, address, des, image } = this.state;
@@ -133,9 +142,16 @@ class ManageTour extends Component {
                   type='text' />
               </div>
             </div>
-            <div className='row'>
-
-              <div className='col-12'>
+            <div className='row mt-3'>
+              <div className='col-8'>
+                <label>Chọn ngày</label>
+                <DatePicker
+                  onChange={this.handleOnchangeDatePicker}
+                  minDate={new Date()}
+                  value={this.state.currentDate}
+                ></DatePicker>
+              </div>
+              <div className='col-4'>
                 <label>Image tour</label>
                 <div className='preview-image-container'>
                   <input id="previewImg" type='file' hidden

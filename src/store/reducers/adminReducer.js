@@ -6,6 +6,7 @@ const initialState = {
     status: [],
     members: [],
     tourInfo: null,
+    tours: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -62,6 +63,20 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 tourInfo: null,
+            }
+        case actionTypes.FETCH_TOUR_SUCCESS:
+            // memberCopy = state.members
+            state.tours = action.data
+            // console.log("check data", action.data)
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_TOUR_FAIL:
+            // memberCopy = state.members
+            state.tours = []
+            // console.log("check data", action.data)
+            return {
+                ...state
             }
         default:
             return state;

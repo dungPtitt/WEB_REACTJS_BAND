@@ -1,4 +1,4 @@
-import { getAllCode, handleCreateUser, getMember } from '../../services/userService';
+import { getAllCode, handleCreateUser, getMember, getTour } from '../../services/userService';
 import { handleCreateTour } from '../../services/tourService';
 import actionTypes from './actionTypes';
 
@@ -95,7 +95,7 @@ export const fetchMemberStart = () => {
             let res = await getMember(3)
             if (res && res.errCode === 0) {
                 // console.log("check member: ", res.member)
-                dispatch(fetchMemberSuccess(res.member));
+                dispatch(fetchMemberSuccess(res.data));
             }
             else {
                 dispatch(fetchMemberFail())
@@ -132,4 +132,32 @@ export const createTourSuccess = (dataInput) => ({
 
 export const createTourFail = () => ({
     type: actionTypes.CREATE_TOUR_FAIL
+})
+
+
+export const fetchTourStart = () => {
+    return async (dispatch, setState) => {
+        try {
+            let res = await getTour('All')
+            if (res && res.errCode === 0) {
+                // console.log("check member: ", res.member)
+                dispatch(fetchTourSuccess(res.tours));
+            }
+            else {
+                dispatch(fetchTourFail())
+            }
+        } catch (e) {
+            dispatch(fetchTourFail())
+            console.log("fetchTourFail err", e)
+        }
+    }
+}
+
+export const fetchTourSuccess = (tours) => ({
+    type: actionTypes.FETCH_TOUR_SUCCESS,
+    data: tours
+})
+
+export const fetchTourFail = () => ({
+    type: actionTypes.FETCH_TOUR_FAIL
 })

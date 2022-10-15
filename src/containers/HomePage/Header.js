@@ -20,11 +20,11 @@ class Home extends Component {
               More
               <i className="fas fa-sort-down"></i>
             </a>
-            <ul className="subnav">
+            <div className="subnav">
               <li><a href="#">Merchandise</a></li>
               <li><a href="#">Extra</a></li>
               <li><a href="#">Media</a></li>
-            </ul>
+            </div>
           </li>
         </ul>
         <div className="search">

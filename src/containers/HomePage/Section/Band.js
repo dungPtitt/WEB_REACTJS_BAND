@@ -15,12 +15,6 @@ class Band extends Component {
   }
   componentDidMount() {
     this.props.fetchMemberStart()
-    // let res = await getAllCode('gender');
-    // if (res && res.data) {
-    //     this.setState({
-    //         genderArr: res.data
-    //     })
-    // }
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.memberRedux !== this.props.memberRedux) {
@@ -32,6 +26,7 @@ class Band extends Component {
   }
   render() {
     let { memberArr } = this.state;
+    console.log("check members: ", memberArr)
     // console.log("check data from react: ", memberArr)
     return (
       <div className='section-band'>

@@ -28,4 +28,8 @@ let getAllCode = (inputType) => {
 let getMember = (inputLimit) => {
   return axios.get(`api/get-member?limit=${inputLimit}`);
 }
-export { handleLoginApi, getUsers, handleCreateUser, deleteUser, getAllCode, getMember }
+
+let getTour = (inputId) => {
+  return axios.get(`api/get-tour?id=${inputId}`);
+}
+export { handleLoginApi, getUsers, handleCreateUser, deleteUser, getAllCode, getMember, getTour }
