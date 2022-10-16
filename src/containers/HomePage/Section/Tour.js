@@ -46,9 +46,22 @@ class Tour extends Component {
           <h2 className="section-heading text-white">Tour Datas</h2>
           <p className="section-sub text-white">Remember to book your tickets!</p>
           <div className="list-ticket">
-            <li className="ticket-iteam">
+            {tourArr && tourArr.length &&
+              tourArr.map((item, index) => {
+                return (
+                  <li className="ticket-iteam">
+                    {item.date}
+                    {item.quantityCurrent > item.quantityMax ?
+                      <span className="status">Sold out</span> :
+                      <span className="quantity">{item.quantityMax - item.quantityCurrent}</span>
+                    }
+                  </li>
+                )
+              })
+            }
+            {/* 
               September
-              <span className="status">Sold out</span>
+              
             </li>
             <li className="ticket-iteam">
               October
@@ -57,7 +70,7 @@ class Tour extends Component {
             <li className="ticket-iteam">
               November
               <span className="quantity">3</span>
-            </li>
+            </li> */}
           </div>
           <div className="places-list">
             {tourArr && tourArr.length &&

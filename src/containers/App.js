@@ -21,6 +21,7 @@ import ConfirmModal from '../components/ConfirmModal';
 import CustomScrollbars from '../components/CustomScrollbars';
 import Member from './System/Member/Member';
 import Tour from './System/Tour/Tour';
+import VerifyBooking from './HomePage/Section/VerifyBooking';
 
 class App extends Component {
 
@@ -55,7 +56,8 @@ class App extends Component {
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.HOMEPAGE} exact component={(HomePage)} />
-                                <Route path={'/tour'} component={(Tour)} />
+                                <Route path={path.TOUR} component={(Tour)} />
+                                <Route path={path.VERIFY_BOOKING} component={VerifyBooking} />
                             </Switch>
                         </CustomScrollbars>
                         <ToastContainer

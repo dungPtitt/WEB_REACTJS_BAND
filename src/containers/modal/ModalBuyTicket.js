@@ -12,7 +12,7 @@ class ModalBuyTicket extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: 0,
+      quantity: 1,
       email: '',
       tourId: '',
       date: '',
@@ -26,7 +26,7 @@ class ModalBuyTicket extends Component {
       let tour = this.props.tour
       this.setState({
         tourId: tour.id,
-        date: "12/12/2022",
+        date: tour.date
       })
     }
   }
@@ -49,13 +49,16 @@ class ModalBuyTicket extends Component {
     let res = await handleBookingTicket({
       statusId: 'S1',
       tourId: this.state.tourId,
+      fullName: this.state.fullName,
       email: this.state.email,
       date: this.state.date,
       phoneNumber: this.state.phoneNumber,
       address: this.state.address
     })
-    console.log(res)
+    // console.log(res)
+
     if (res.errCode === 0) {
+      this.toggle()
       alert("Dat ve thanh cong vui long cho email xac nhan")
     } else {
       alert("Vui long su dung email khac")

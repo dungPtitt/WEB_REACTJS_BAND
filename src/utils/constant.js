@@ -3,7 +3,9 @@ export const path = {
     LOGIN: '/login',
     HOMEPAGE: '/home',
     LOG_OUT: '/logout',
-    SYSTEM: '/system'
+    SYSTEM: '/system',
+    TOUR: '/tour',
+    VERIFY_BOOKING: '/verify-booking',
 };
 
 export const languages = {

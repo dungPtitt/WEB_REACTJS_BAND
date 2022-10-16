@@ -94,7 +94,7 @@ class UserRedux extends Component {
     handleSave = () => {
 
         if (this.handleValidate()) {
-            console.log('check image', this.state.image)
+            console.log('check state from user redux: ', this.state)
             let dataInput = {
                 email: this.state.email,
                 password: this.state.password,
@@ -108,7 +108,14 @@ class UserRedux extends Component {
 
             }
             // console.log("check data", dataInput)
-            this.props.createUserStart(dataInput);
+            let res = this.props.createUserStart(dataInput);
+            if (res) {
+                if (res.errCode === 0) {
+                    alert("Create user success")
+                } else {
+                    alert(res.errMessage);
+                }
+            }
         }
         // handleUpdateUser = (user) => {
         //     let imageBase64 = '';

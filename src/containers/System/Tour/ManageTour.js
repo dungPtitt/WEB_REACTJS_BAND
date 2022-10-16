@@ -23,6 +23,7 @@ class ManageTour extends Component {
       des: '',
       image: '',
       currentDate: '',
+      quantityMax: 50,
     }
   }
 
@@ -65,7 +66,7 @@ class ManageTour extends Component {
     })
   }
   handleValidate = () => {
-    let inputs = ['name', 'address', 'des'];
+    let inputs = ['name', 'address', 'des', 'quantityMax', 'currentDate', 'image'];
     for (let i = 0; i < inputs.length; i++) {
       if (!this.state[inputs[i]]) {
         alert('Missing input ' + inputs[i])
@@ -83,10 +84,18 @@ class ManageTour extends Component {
         address: this.state.address,
         des: this.state.des,
         image: this.state.image,
-        // date: this.state.currentDate
+        date: moment(this.state.currentDate).format('DD/MM/YYYY'),
+        quantityMax: this.state.quantityMax,
+        quantityCurrent: 0
       }
       console.log("check data", moment(this.state.currentDate).format('DD/MM/YYYY'))
-      //this.props.createTourStart(dataInput);
+      let res = this.props.createTourStart(dataInput);
+      console.log("check res:", res)
+      // if (res.errCode === 0) {
+      //   alert("Create tour success")
+      // } else {
+      //   alert("Create tour failed")
+      // }
     }
     // handleUpdateUser = (user) => {
     //     let imageBase64 = '';
@@ -105,7 +114,7 @@ class ManageTour extends Component {
     })
   }
   render() {
-    let { name, address, des, image } = this.state;
+    let { name, address, des, image, quantityMax, date } = this.state;
     return (
       <div className='user-redux-container'>
         <div className='col-12'>
@@ -143,13 +152,21 @@ class ManageTour extends Component {
               </div>
             </div>
             <div className='row mt-3'>
-              <div className='col-8'>
+              <div className='col-4'>
                 <label>Chọn ngày</label>
+                <br></br>
                 <DatePicker
                   onChange={this.handleOnchangeDatePicker}
                   minDate={new Date()}
                   value={this.state.currentDate}
                 ></DatePicker>
+              </div>
+              <div className='col-4 form-group'>
+                <label>So luong ve</label><br></br>
+                <input type='text' className='form-controll'
+                  value={quantityMax}
+                  onChange={(e) => this.handleOnchangeInput(e, 'quantityMax')}
+                />
               </div>
               <div className='col-4'>
                 <label>Image tour</label>

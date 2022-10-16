@@ -32,4 +32,8 @@ let getMember = (inputLimit) => {
 let getTour = (inputId) => {
   return axios.get(`api/get-tour?id=${inputId}`);
 }
-export { handleLoginApi, getUsers, handleCreateUser, deleteUser, getAllCode, getMember, getTour }
+
+let postVerifyBooking = (data) => {
+  return axios.post('api/verify-booking-ticket', data);
+}
+export { handleLoginApi, getUsers, handleCreateUser, deleteUser, getAllCode, getMember, getTour, postVerifyBooking }
