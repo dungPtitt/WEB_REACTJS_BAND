@@ -7,6 +7,8 @@ const initialState = {
     members: [],
     tourInfo: null,
     tours: [],
+    Alltour: [],
+    memorableTours: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -74,6 +76,34 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.FETCH_TOUR_FAIL:
             // memberCopy = state.members
             state.tours = []
+            // console.log("check data", action.data)
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_AllTOUR_SUCCESS:
+            // memberCopy = state.members
+            state.Alltour = action.data
+            // console.log("check data", action.data)
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_AllTOUR_FAIL:
+            // memberCopy = state.members
+            state.Alltour = []
+            // console.log("check data", action.data)
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_MTOUR_SUCCESS:
+            // memberCopy = state.members
+            state.memorableTours = action.data
+            // console.log("check data", action.data)
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_MTOUR_FAIL:
+            // memberCopy = state.members
+            state.memorableTours = []
             // console.log("check data", action.data)
             return {
                 ...state

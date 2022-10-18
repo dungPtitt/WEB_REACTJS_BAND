@@ -7,7 +7,7 @@ import SliderIntro from './Section/SliderIntro';
 import Band from './Section/Band';
 import Tour from './Section/Tour';
 import Footer from './Footer';
-
+import Contact from './Section/Contact';
 
 class Home extends Component {
 
@@ -18,6 +18,7 @@ class Home extends Component {
         <SliderIntro />
         <Band />
         <Tour />
+        <Contact />
         <Footer />
       </React.Fragment>
     )

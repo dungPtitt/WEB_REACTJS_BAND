@@ -1,0 +1,36 @@
+// .section-contact {
+//   .contact-content {
+
+//   }
+// }
+
+.contact-info {
+  font-size: 1.8rem;
+  line-height: 1.5;
+}
+
+.contact-info i {
+  width: 30px;
+  display: inline-block;
+}
+
+.contact-form {
+  font-size: 1.5rem
+}
+
+.contact-form .form-control {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 10px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+.form-submit {
+  float: right;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  padding: 12px 18px;
+  text-transform: uppercase;
+}

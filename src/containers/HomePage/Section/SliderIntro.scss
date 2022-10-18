@@ -1,6 +1,6 @@
 .section-slider-intro {
   height: 250px;
-  width: 1200px;
+  width: 960px;
   margin: 60px auto 0;
   // border: solid 1px red;
   // display: flex;
@@ -30,10 +30,14 @@
         height: 100%;
         width: 100%;
 
+        .title {
+          text-align: center;
+        }
+
         .bg-image {
           height: 150px;
           width: 278px;
-          background: url('../../../assets/band/band1.jpg') center / cover no-repeat;
+          // background: url('../../../assets/band/band1.jpg') center / cover no-repeat;
           border: solid 1px #ccc;
         }
       }
@@ -46,6 +50,7 @@
     height: 44px !important;
     width: 48px !important;
     background: #ccc !important;
+    opacity: 0.5;
     z-index: 2;
 
     &:hover {
@@ -65,10 +70,12 @@
     height: 44px !important;
     width: 48px !important;
     background: #ccc !important;
+    opacity: 0.5;
     z-index: 2;
 
     &:hover {
       background: rgb(185, 180, 180) !important;
+      opacity: 0.9;
     }
   }
 }

@@ -5,8 +5,11 @@ let handleCreateTour = (data) => {
   return axios.post('api/create-tour', data);
 }
 
+let handleEditTour = (data) => {
+  return axios.post('api/edit-tour', data);
+}
 let handleBookingTicket = (data) => {
   return axios.post('api/audience-booking-ticket', data)
 }
 
-export { handleCreateTour, handleBookingTicket }
+export { handleCreateTour, handleBookingTicket, handleEditTour }

@@ -17,7 +17,7 @@ class Tour extends Component {
     // this.listenToEmitter();
   }
   componentDidMount() {
-    this.props.fetchTourStart();
+    this.props.fetchTourStart(3);
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.toursRedux !== this.props.toursRedux) {
@@ -51,7 +51,7 @@ class Tour extends Component {
                 return (
                   <li className="ticket-iteam">
                     {item.date}
-                    {item.quantityCurrent > item.quantityMax ?
+                    {item.quantityCurrent >= item.quantityMax ?
                       <span className="status">Sold out</span> :
                       <span className="quantity">{item.quantityMax - item.quantityCurrent}</span>
                     }
@@ -133,7 +133,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchTourStart: () => { dispatch(actions.fetchTourStart()) }
+    fetchTourStart: (limitInput) => { dispatch(actions.fetchTourStart(limitInput)) }
   };
 };
 

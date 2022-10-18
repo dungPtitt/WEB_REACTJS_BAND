@@ -10,11 +10,11 @@ class Home extends Component {
   render() {
     return (
       <div className="header-page-container">
-        <ul className="header-nav">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/band">Band</Link></li>
-          <li><Link to="/tour">Tour</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+        <div className="header-nav">
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="#">Band</Link></li>
+          <li><Link to="#">Tour</Link></li>
+          <li><Link to="#">Contact</Link></li>
           <li>
             <a href="#">
               More
@@ -26,7 +26,7 @@ class Home extends Component {
               <li><a href="#">Media</a></li>
             </div>
           </li>
-        </ul>
+        </div>
         <div className="search">
           <i className="fas fa-search search-bottom"></i>
         </div>

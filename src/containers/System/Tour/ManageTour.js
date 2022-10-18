@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { CommonUtils } from '../../../utils';
+import { CommonUtils, CRUD_ACTION } from '../../../utils';
 import * as actions from '../../../store/actions';
+import { deleteTour } from '../../../services/userService';
 // import * as actions from '../../../store/actions';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
@@ -22,22 +23,32 @@ class ManageTour extends Component {
       address: '',
       des: '',
       image: '',
-      currentDate: '',
+      currentDate: new Date(),
       quantityMax: 50,
+      tourArr: [],
+      action: '',
+      id: '',
     }
   }
-
+  handleGetAllTour = () => {
+    let res = this.props.fetchAllTourStart();
+    if (res && res.errCode == 0) {
+      console.log("check tour:", res)
+      // this.setState({
+      //   Alltour: res.tours
+      // })
+    }
+  }
   async componentDidMount() {
-    // this.props.getTourStart()
+    this.handleGetAllTour();
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
-    // if (prevProps.genderRedux !== this.props.genderRedux) {
-    //   let genders = this.props.genderRedux;
-    //   this.setState({
-    //     genderArr: genders,
-    //     gender: genders && genders.length > 0 ? genders[0].key : ''
-    //   })
-    // }
+    if (prevProps.tourRedux !== this.props.tourRedux) {
+      let tours = this.props.tourRedux;
+      this.setState({
+        tourArr: tours,
+      })
+    }
   }
   handleOnchangeImage = async (e) => {
     let file = e.target.files[0];
@@ -75,9 +86,28 @@ class ManageTour extends Component {
     }
     return true;
   }
-  handleSave = () => {
+  handleSave = async () => {
 
     if (this.handleValidate()) {
+      let res;
+      let action = this.state.action;
+      if (action === CRUD_ACTION.EDIT) {
+        let tourEditInfo = {
+          id: this.state.id,
+          name: this.state.name,
+          address: this.state.address,
+          des: this.state.des,
+        }
+        console.log("check tour info: ", tourEditInfo)
+        res = await this.props.editTourStart(tourEditInfo);
+        if (res && +res.errCode !== 0) {
+          alert("Err" + res.errMessage);
+        } else {
+          alert("Update tour success");
+          this.handleGetAllTour();
+        }
+        return;
+      }
       // console.log('check image', this.state.image)
       let dataInput = {
         name: this.state.name,
@@ -88,14 +118,16 @@ class ManageTour extends Component {
         quantityMax: this.state.quantityMax,
         quantityCurrent: 0
       }
-      console.log("check data", moment(this.state.currentDate).format('DD/MM/YYYY'))
-      let res = this.props.createTourStart(dataInput);
-      console.log("check res:", res)
-      // if (res.errCode === 0) {
-      //   alert("Create tour success")
-      // } else {
-      //   alert("Create tour failed")
-      // }
+      // console.log("check data", moment(this.state.currentDate).format('DD/MM/YYYY'))
+      res = await this.props.createTourStart(dataInput);
+      if (res && +res.errCode != 0) {
+        alert("Err" + res.errMessage);
+      } else {
+        alert(res.message);
+        this.handleGetAllTour();
+      }
+
+      console.log("check response: ", res)
     }
     // handleUpdateUser = (user) => {
     //     let imageBase64 = '';
@@ -107,14 +139,45 @@ class ManageTour extends Component {
     //     })
     //     console.log("check image: ", imageBase64);
     // }
+
   }
   handleOnchangeDatePicker = (date) => {
     this.setState({
       currentDate: date[0]
     })
   }
+  handleUpdateTour = (tour) => {
+    console.log("check tour: ", tour)
+    this.setState({
+      name: tour.name,
+      address: tour.address,
+      des: tour.des,
+      image: tour.image,
+      date: moment(tour.currentDate).format('DD/MM/YYYY'),
+      quantityMax: tour.quantityMax,
+      action: CRUD_ACTION.EDIT,
+      id: tour.id
+    })
+  }
+  handleDeleteTour = async (tourId) => {
+    // console.log(userId)
+    let result = window.confirm('Are you sure you want to delete?');
+    if (result) {
+      console.log("check id toud", tourId)
+      let res = await deleteTour(tourId);
+      // console.log("check errCode and id", tourId, response.errCode)
+      if (res && res.errCode == 0) {
+        this.handleGetAllTour();
+        alert(res.message);
+      }
+      else {
+        alert(res.errMessage);
+      }
+    }
+
+  }
   render() {
-    let { name, address, des, image, quantityMax, date } = this.state;
+    let { name, address, des, image, quantityMax, date, tourArr, action } = this.state;
     return (
       <div className='user-redux-container'>
         <div className='col-12'>
@@ -156,6 +219,7 @@ class ManageTour extends Component {
                 <label>Chọn ngày</label>
                 <br></br>
                 <DatePicker
+                  selected={this.state.currentDate}
                   onChange={this.handleOnchangeDatePicker}
                   minDate={new Date()}
                   value={this.state.currentDate}
@@ -185,9 +249,9 @@ class ManageTour extends Component {
               </div>
               <div className='col-12'>
                 <button
-                  className='btn-add primary mt-3'
+                  className={action === CRUD_ACTION.EDIT ? 'btn btn-warning mt-3' : 'btn btn-primary mt-3'}
                   onClick={() => this.handleSave()}
-                >Create Tour</button>
+                >{action === CRUD_ACTION.EDIT ? 'Update Tour' : 'Create Tour'}</button>
               </div>
             </div>
           </div>
@@ -201,6 +265,31 @@ class ManageTour extends Component {
 
           />
         }
+        <table id='table-user' className='table-users'>
+          <tbody>
+            <tr>
+              <th>Ten tour</th>
+              <th>Dia chi</th>
+              <th>Ngay</th>
+              <th>Actions</th>
+            </tr>
+            {tourArr && tourArr.length &&
+              tourArr.map((item, index) => {
+                return (
+                  <tr key={item.id}>
+                    <td>{item.name}</td>
+                    <td>{item.address}</td>
+                    <td>{item.date}</td>
+                    <td>
+                      <button onClick={() => { this.handleUpdateTour(item) }} className='btn-update'><i className="fas fa-pencil-alt"></i> </button>
+                      <button onClick={() => { this.handleDeleteTour(item.id) }} className='btn-delete'><i className="fas fa-trash"></i></button>
+                    </td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table>
       </div >
       // <div className="text-center" >User Redux</div>
     )
@@ -210,8 +299,7 @@ class ManageTour extends Component {
 
 const mapStateToProps = state => {
   return {
-    // genderRedux: state.admin.genders,
-    // roleRedux: state.admin.roles
+    tourRedux: state.admin.Alltour,
   };
 };
 
@@ -220,8 +308,11 @@ const mapDispatchToProps = dispatch => {
     // getGenderStart: () => dispatch(actions.fetchGenderStart()),
     // getRoleStart: () => dispatch(actions.fetchRoleStart()),
     // createUserStart: (data) => dispatch(actions.createUserStart(data))
-    createTourStart: (data) => dispatch(actions.createTourStart(data))
+    createTourStart: (data) => dispatch(actions.createTourStart(data)),
+    fetchAllTourStart: () => dispatch(actions.fetchAllTourStart()),
+    editTourStart: (data) => dispatch(actions.editTourStart(data))
   };
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageTour);

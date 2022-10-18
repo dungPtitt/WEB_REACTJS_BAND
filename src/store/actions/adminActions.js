@@ -1,5 +1,5 @@
-import { getAllCode, handleCreateUser, getMember, getTour } from '../../services/userService';
-import { handleCreateTour } from '../../services/tourService';
+import { getAllCode, handleCreateUser, getMember, getTour, getMemorableTour, getAllTour } from '../../services/userService';
+import { handleCreateTour, handleEditTour } from '../../services/tourService';
 import actionTypes from './actionTypes';
 
 export const fetchGenderStart = () => {
@@ -134,11 +134,39 @@ export const createTourFail = () => ({
     type: actionTypes.CREATE_TOUR_FAIL
 })
 
-
-export const fetchTourStart = () => {
+export const editTourStart = (data) => {
     return async (dispatch, setState) => {
         try {
-            let res = await getTour('All')
+            let res = await handleEditTour(data);
+            console.log("check response", res)
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllTourStart())
+                dispatch(editTourSuccess());
+            } else {
+                dispatch(editTourFail());
+            }
+        } catch (e) {
+            dispatch(editTourFail())
+            console.log('Err edit Tour: ', e)
+        }
+    }
+}
+
+export const editTourSuccess = () => ({
+    type: actionTypes.EDIT_TOUR_SUCCESS,
+})
+
+export const editTourFail = () => ({
+    type: actionTypes.EDIT_TOUR_FAIL
+})
+
+
+export const fetchTourStart = (limitInput) => {
+    return async (dispatch, setState) => {
+        try {
+            if (!limitInput) limitInput = 3;
+            console.log("check limit: ", limitInput)
+            let res = await getTour(limitInput)
             if (res && res.errCode === 0) {
                 // console.log("check member: ", res.member)
                 dispatch(fetchTourSuccess(res.tours));
@@ -160,4 +188,56 @@ export const fetchTourSuccess = (tours) => ({
 
 export const fetchTourFail = () => ({
     type: actionTypes.FETCH_TOUR_FAIL
+})
+// fetchAllTourStart
+export const fetchAllTourStart = () => {
+    return async (dispatch, setState) => {
+        try {
+            let res = await getAllTour()
+            if (res && res.errCode === 0) {
+                // console.log("check member: ", res.member)
+                dispatch(fetchAllTourSuccess(res.tours));
+            }
+            else {
+                dispatch(fetchAllTourFail())
+            }
+        } catch (e) {
+            dispatch(fetchAllTourFail())
+            console.log("fetchAllTourFail err", e)
+        }
+    }
+}
+
+export const fetchAllTourSuccess = (tours) => ({
+    type: actionTypes.FETCH_AllTOUR_SUCCESS,
+    data: tours
+})
+export const fetchAllTourFail = () => ({
+    type: actionTypes.FETCH_AllTOUR_FAIL,
+})
+export const fetchMemorableTourStart = (limitInput) => {
+    return async (dispatch, setState) => {
+        try {
+            let res = await getMemorableTour(limitInput)
+            if (res && res.errCode === 0) {
+                // console.log("check member: ", res.member)
+                dispatch(fetchMemorableTourSuccess(res.tours));
+            }
+            else {
+                dispatch(fetchMemorableTourFail())
+            }
+        } catch (e) {
+            dispatch(fetchMemorableTourFail())
+            console.log("fetchMemorableTourFail err", e)
+        }
+    }
+}
+
+export const fetchMemorableTourSuccess = (tours) => ({
+    type: actionTypes.FETCH_MTOUR_SUCCESS,
+    data: tours
+})
+
+export const fetchMemorableTourFail = () => ({
+    type: actionTypes.FETCH_MTOUR_FAIL
 })

@@ -38,7 +38,7 @@ class UserManage extends Component {
         let response = await handleCreateUser(data);
         console.log(response);
         if (response && response.errCode != 0) {
-            alert(response.errMassage);
+            alert(response.errMessage);
         } else {
             this.handleGetAllUsers();
             this.setState({
@@ -52,7 +52,7 @@ class UserManage extends Component {
         let response = await deleteUser(userId);
         console.log("check errCode and id", userId, response.errCode)
         if (response && response.errCode !== 0) {
-            alert(response.errMassage);
+            alert(response.errMessage);
         }
         else {
             this.handleGetAllUsers();

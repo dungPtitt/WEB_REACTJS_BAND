@@ -110,7 +110,7 @@ class UserRedux extends Component {
             // console.log("check data", dataInput)
             let res = this.props.createUserStart(dataInput);
             if (res) {
-                if (res.errCode === 0) {
+                if (res.errCode == 0) {
                     alert("Create user success")
                 } else {
                     alert(res.errMessage);
