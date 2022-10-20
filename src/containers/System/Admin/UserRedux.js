@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { getAllCode } from '../../../services/userService';
+import { getAllCode, deleteUser } from '../../../services/userService';
 import { CommonUtils } from '../../../utils';
 import * as actions from '../../../store/actions';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import './UserRedux.scss'
+import { fetchMemberStart } from '../../../store/actions';
+
 
 class UserRedux extends Component {
 
@@ -17,6 +19,7 @@ class UserRedux extends Component {
             roleArr: [],
             previewImageUrl: '',
             isOpen: false,
+            userId: '',
             email: '',
             password: '',
             firstName: '',
@@ -25,13 +28,15 @@ class UserRedux extends Component {
             address: '',
             gender: '',
             role: '',
-            image: ''
+            image: '',
+            userArr: [],
         }
     }
 
     async componentDidMount() {
         this.props.getGenderStart()
         this.props.getRoleStart()
+        this.props.fetchUserStart('All');
         // let res = await getAllCode('gender');
         // if (res && res.data) {
         //     this.setState({
@@ -52,6 +57,12 @@ class UserRedux extends Component {
             this.setState({
                 roleArr: roles,
                 role: roles && roles.length > 0 ? roles[0].key : ''
+            })
+        }
+        if (prevProps.userRedux !== this.props.userRedux) {
+            let users = this.props.userRedux;
+            this.setState({
+                userArr: users
             })
         }
     }
@@ -80,6 +91,34 @@ class UserRedux extends Component {
         this.setState({
             [typeInput]: e.target.value
         })
+    }
+    handleEditUer = async (user) => {
+        console.log("check user: ", user)
+        this.setState({
+            userId: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phonenumber: user.phonenumber,
+            address: user.password,
+            // gender: user.gender,
+            // roleId: user.roleId,
+            // image: user.image,
+        })
+    }
+    handleDeleteUser = async (userId) => {
+        let result = window.confirm('Are you sure you want to delete?');
+        if (result) {
+            console.log("check id toud", userId)
+            let res = await deleteUser(userId);
+            // console.log("check errCode and id", userId, response.errCode)
+            if (res && res.errCode == 0) {
+                this.props.fetchUserStart('All');
+                alert(res.message);
+            }
+            else {
+                alert(res.errMessage);
+            }
+        }
     }
     handleValidate = () => {
         let inputs = ['email', 'password', 'firstName', 'lastName', 'phonenumber', 'address'];
@@ -131,7 +170,8 @@ class UserRedux extends Component {
     render() {
         let genders = this.state.genderArr;
         let roles = this.state.roleArr;
-        let { email, password, firstName, lastName, phonenumber, address, gender, role, image } = this.state;
+        let { userArr, email, password, firstName, lastName, phonenumber, address, gender, role, image } = this.state;
+        console.log("check users: ", userArr);
         return (
             <div className='user-redux-container'>
                 <div className='col-12'>
@@ -259,6 +299,31 @@ class UserRedux extends Component {
 
                     />
                 }
+                <table id='table-user' className='table-users'>
+                    <tbody>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                        {userArr && userArr.length &&
+                            userArr.map((item, index) => {
+                                return (
+                                    <tr key={item.id}>
+                                        <td>{item.firstName}</td>
+                                        <td>{item.lastName}</td>
+                                        <td>{item.email}</td>
+                                        <td>
+                                            <button onClick={() => { this.handleEditUer(item) }} className='btn-update'><i className="fas fa-pencil-alt"></i> </button>
+                                            <button onClick={() => { this.handleDeleteUser(item.id) }} className='btn-delete'><i className="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
             </div >
             // <div className="text-center" >User Redux</div>
         )
@@ -269,7 +334,8 @@ class UserRedux extends Component {
 const mapStateToProps = state => {
     return {
         genderRedux: state.admin.genders,
-        roleRedux: state.admin.roles
+        roleRedux: state.admin.roles,
+        userRedux: state.admin.users,
     };
 };
 
@@ -277,7 +343,8 @@ const mapDispatchToProps = dispatch => {
     return {
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
-        createUserStart: (data) => dispatch(actions.createUserStart(data))
+        createUserStart: (data) => dispatch(actions.createUserStart(data)),
+        fetchUserStart: (id) => dispatch(actions.fetchUserStart(id))
     };
 };
 

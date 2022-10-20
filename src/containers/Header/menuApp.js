@@ -3,7 +3,7 @@ export const adminMenu = [
         name: 'menu.admin.manage-user',
         menus: [
             {
-                name: 'menu.admin.manage-admin', link: 'system/user-manage'
+                name: 'menu.admin.manage-admin', link: '/system/user-manage'
             },
             {
                 name: 'menu.admin.manage-band', link: '/system/manage-member'
@@ -22,7 +22,7 @@ export const adminMenu = [
         name: 'menu.admin.tour',
         menus: [
             {
-                name: 'menu.admin.manage-tour', link: 'system/manage-band'
+                name: 'menu.tour.manage-tour', link: 'tour/manage-band'
             },
             // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
         ]

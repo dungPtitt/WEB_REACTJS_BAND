@@ -1,24 +1,26 @@
-// .section-contact {
-//   .contact-content {
+.section-contact {
+  margin: 0 40px;
 
-//   }
-// }
+  .contact-content {
+    .contact-info {
+      font-size: 1.8rem;
+      line-height: 1.5;
 
-.contact-info {
-  font-size: 1.8rem;
-  line-height: 1.5;
+      .contact-form {
+        font-size: 1.5rem
+      }
+
+      i {
+        width: 30px;
+        display: inline-block;
+      }
+    }
+  }
 }
 
-.contact-info i {
-  width: 30px;
-  display: inline-block;
-}
 
-.contact-form {
-  font-size: 1.5rem
-}
 
-.contact-form .form-control {
+.contact-info .contact-form .form-control {
   width: 100%;
   font-size: 1.5rem;
   padding: 10px;

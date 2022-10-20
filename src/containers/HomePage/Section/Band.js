@@ -14,7 +14,7 @@ class Band extends Component {
     }
   }
   componentDidMount() {
-    this.props.fetchMemberStart()
+    this.props.fetchMemberStart(3)
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.memberRedux !== this.props.memberRedux) {
@@ -71,7 +71,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchMemberStart: () => dispatch(actions.fetchMemberStart()),
+    fetchMemberStart: (id) => dispatch(actions.fetchMemberStart(id)),
   };
 };
 

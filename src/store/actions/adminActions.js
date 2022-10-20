@@ -1,11 +1,12 @@
 import { getAllCode, handleCreateUser, getMember, getTour, getMemorableTour, getAllTour } from '../../services/userService';
 import { handleCreateTour, handleEditTour } from '../../services/tourService';
+import { getUsers } from '../../services/userService'
 import actionTypes from './actionTypes';
 
 export const fetchGenderStart = () => {
     return async (dispatch, setState) => {
         try {
-            let res = await getAllCode("gender")
+            let res = await getAllCode("GENDER")
             if (res && res.data) {
                 dispatch(fetchGenderSuccess(res.data));
             }
@@ -89,10 +90,10 @@ export const fetchMemberFail = () => ({
     type: actionTypes.FETCH_MEMBER_FAIL
 })
 
-export const fetchMemberStart = () => {
+export const fetchMemberStart = (id) => {
     return async (dispatch, setState) => {
         try {
-            let res = await getMember(3)
+            let res = await getMember(id)
             if (res && res.errCode === 0) {
                 // console.log("check member: ", res.member)
                 dispatch(fetchMemberSuccess(res.data));
@@ -106,6 +107,33 @@ export const fetchMemberStart = () => {
         }
     }
 }
+
+export const fetchUserStart = (id) => {
+    return async (dispatch, setState) => {
+        try {
+            let res = await getUsers(id)
+            console.log("check users from redux: ", res)
+            if (res && res.errCode === 0) {
+                // console.log("check User: ", res.User)
+                dispatch(fetchUserSuccess(res.user));
+            }
+            else {
+                dispatch(fetchUserFail())
+            }
+        } catch (e) {
+            dispatch(fetchUserFail())
+            console.log("fetchUserFail err", e)
+        }
+    }
+}
+export const fetchUserSuccess = (user) => ({
+    type: actionTypes.FETCH_USER_SUCCESS,
+    data: user
+})
+
+export const fetchUserFail = () => ({
+    type: actionTypes.FETCH_USER_FAIL
+})
 
 export const createTourStart = (data) => {
     return async (dispatch, setState) => {

@@ -56,7 +56,7 @@ class App extends Component {
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.HOMEPAGE} exact component={(HomePage)} />
-                                <Route path={path.TOUR} component={(Tour)} />
+                                <Route path={path.TOUR} component={userIsAuthenticated(Tour)} />
                                 <Route path={path.VERIFY_BOOKING} component={VerifyBooking} />
                             </Switch>
                         </CustomScrollbars>

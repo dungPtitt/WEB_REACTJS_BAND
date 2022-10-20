@@ -18,8 +18,7 @@
             "manage-band": "Quản lý band nhac",
             "crud": "CRUD User",
             "crud-redux": "CRUD User redux",
-            "tour": "Tour",
-            "manage-tour": "Quản lý Tour"
+            "tour": "Tour"
         },
         "member": {
             "manage-member": "Quản ly thanh vien",

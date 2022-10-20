@@ -9,6 +9,7 @@ const initialState = {
     tours: [],
     Alltour: [],
     memorableTours: [],
+    users: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -41,6 +42,23 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
             }
+        case actionTypes.FETCH_USER_SUCCESS:
+            // memberCopy = state.members
+            let copyStateUser = { ...state }
+            // console.log("check data", action.data)
+            copyStateUser.users = action.data;
+            return {
+                ...copyStateUser,
+            }
+        case actionTypes.FETCH_USER_SUCCESS:
+            // memberCopy = state.members
+            copyStateUser = { ...state }
+            // console.log("check data", action.data)
+            copyStateUser.users = [];
+            return {
+                ...copyStateUser,
+            }
+
         case actionTypes.FETCH_MEMBER_SUCCESS:
             // memberCopy = state.members
             let copyStateMember = { ...state }
